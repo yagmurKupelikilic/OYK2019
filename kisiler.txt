@@ -1,0 +1,4 @@
+Nuri;Akman;Ankara
+Hasan;Çiçek;İstanbul
+Ali;Yıldız;Bolu
+Yagmur;Küpelikilic;İst
