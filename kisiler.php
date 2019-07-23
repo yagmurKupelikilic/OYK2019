@@ -24,7 +24,6 @@ echo "<hr/>"; ///ögrenme bitti....
   $arrKisiler = file($dosya);
   foreach ($arrKisiler as $key => $value) {
     $Kisi=$value;
-    $arrKisi = explode(";", $Kisi);
     $list($AD, $SOYAD, $SEHIR) = explode(";", $Kisi);
     echo " <tr>
     <td>$AD</td>
