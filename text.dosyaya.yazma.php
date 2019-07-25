@@ -14,16 +14,20 @@
       Soyad giriniz: <input type="text" name="soyad" />
     </p>
     <p>
-      <input type ="submit" value="EKLE" />;
+      <input type ="submit" value="EKLE" />
     </p>
   </form>
   <?php
-    if(isset($_POST["ad"])){
-      $isim=$_POST[ad] . ";" . $_POST[soyad];
-      echo $isim;
-      file_put_contents("isimler.txt", $isim);
-      echo '$isim';
-    }
+
+  if( isset( $_POST["ad"]) ) {
+     $isim = $_POST["ad"] . ";" . $_POST["soyad"] . "\n";
+     $mevcut_isimler = file_get_contents("isimler.txt");
+     $dosya_son_durum = $mevcut_isimler . $isim;
+     file_put_contents("isimler.txt", $dosya_son_durum);
+   }
+
+
+
 
   ?>
 </body>
