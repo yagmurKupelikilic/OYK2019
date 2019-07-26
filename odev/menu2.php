@@ -9,5 +9,9 @@ if($_SESSION["yetki"] <> 2 ){
   require("yetkili.degilsiniz.php");
   die();
 }
-echo "<h1>Hosgeldin Menu 2</h1> <a href='login.php'>Log</a>";
+echo "<h1>Menu 2</h1><p>Hoşgeldin</p>" . $_SESSION['kullanici_adi'];
+
+
+      echo "<br /><a href='login.php'>Log</a><br />";
+      echo "<a href='oturumu.kapat.php'>oturumu kapat</a>";
 ?>
