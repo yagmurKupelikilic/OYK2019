@@ -1,28 +1,67 @@
-<h1>Kayıt Liste</h1>
+<?php
+include("db.php");
 
-<table border=1 cellpadding=5 cellspacing=0>
-  <tr>
-    <td>ADI</td>
-    <td>SOYADI</td>
-    <td>Parola</td>
-    <td>Tür</td>
+if (isset( $_POST["adisoyadi"] )) {  // Form POST edilmiş...
 
-  </tr>
-  <?php
-  $SQL   = "SELECT id, adi, soyadi, parola, tur FROM kullanicilar";
-  $rows  = mysqli_query($db, $SQL);
-
-  while($row = mysqli_fetch_assoc($rows)) { // Kayıt adedince döner
-      echo sprintf("
-        <tr>
-          <td>%s</td>
-          <td>%s</td>
-          <td>%s</td>
-          <td>%s</td>
-
-        </tr>",
-        $row["adi"], $row["soyadi"], $row["parola"], $row["tur"]  );
+  if($_POST["tur"] == "" ) {
+    // TÜR seçilmemiş :(
+    $HataMesaji[] = "Tür seçimi yapılmamış !";
   }
 
+  if($_POST["parola"] == "" ) {
+    // Parola yazılmamış
+    $HataMesaji[] = "Parola girilmemiş !";
+  }
+
+  if($_POST["adisoyadi"] == "" ) {
+    // İsim yazılmamış
+    $HataMesaji[] = "Ad soyad girilmemiş !";
+  }
+
+  if( !isset($HataMesaji) ) {
+    // Önce EKLEME için SQL hazırlayalım...
+    $SQL = sprintf("
+        INSERT INTO
+          kullanicilar
+        SET
+          adisoyadi = '%s',
+          parola    = '%s',
+          tur       = '%s'  ",
+    $_POST["adisoyadi"], $_POST["parola"], $_POST["tur"]);
+
+    // SQL komutunu MySQL veritabanı üzerinde çalıştır!
+    $rows  = mysqli_query($db, $SQL);
+    echo $SQL;
+    echo "<h4>Kayıt eklendi...</h4>";
+  }
+
+}  // Form POST edilmiş...
+
+?>
+
+
+<h1>Üye Ekleme</h1>
+
+<h3 style="color:red">
+  <?php
+
+    for ($i=0; $i < count($HataMesaji); $i++) {
+      echo $HataMesaji[$i] . "<br />";
+    }
+
   ?>
-</table>
+</h3>
+
+<form method="post">
+  Adı Soyadı:<input type="text" name="adisoyadi" value="<?php echo $_POST["adisoyadi"];?>">
+  <br /><br />
+  Parola:<input type="password" name="parola" value="<?php echo $_POST["parola"];?>">
+  <br /><br />
+  Tür:<select name='tur'>
+    <option value="">SEÇİNİZ</option>
+    <option value="M" <?php if($_POST["tur"]== "M") echo "selected"; ?>>Müşteri</option>
+    <option value="E" <?php if($_POST["tur"]== "E") echo "selected"; ?>>Esnaf</option>
+  </select>
+  <br /><br />
+  <input type="submit" name="" value="Üye Ekle (insert)">
+</form>
