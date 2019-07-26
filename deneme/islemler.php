@@ -13,6 +13,7 @@ if (isset( $_POST["sayi1"] )) {  // Form POST edilmiş...
   // SQL komutunu MySQL veritabanı üzerinde çalıştır!
   $rows  = mysqli_query($db, $SQL);
   echo "<h4>Kayıt başarıyla eklendi</h4>";
+  echo"<a href='show.php'>Listelemek için tıklayınız..</a>";
 }  // Form POST edilmiş...
 ?>
 
